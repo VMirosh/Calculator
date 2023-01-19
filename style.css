@@ -1,0 +1,47 @@
+body{
+  background-image: url("./img/body-back.jpg");
+}
+.bodyCalculate{
+  margin: 50px auto;
+  max-width: 300px;
+  height: 500px;
+  border-radius: 10%;
+  opacity: 0.3;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+}
+.bodyCalculate .scren{
+  height: 100px;
+  max-width: 100%;
+  margin: 5px;
+  opacity: 0.5;
+  border: 1px solid black;
+  border-radius: 5%;
+
+}
+/* /* .bodyCalculate .scren .showWrite{} */
+
+/* .bodyCalculate .scren .rezult{} */ 
+
+.bodyCalculate .buttons{
+  opacity: 1;
+  max-width: 100%;
+  height: 300px;
+  margin: 5px;
+  border-spacing: 10px;
+  /* background-color:blue; */
+}
+
+
+.bodyCalculate .buttons td{  
+  text-align: center;
+  background-color: rgba(54, 45, 45, 0.493);
+  color: white;
+  width: 15%;
+  border: 2px solid black;
+  border-radius: 20%;
+  font-size: 20px;  
+}

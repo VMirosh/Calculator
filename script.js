@@ -16,12 +16,13 @@ let operations = {
 
 buttons.addEventListener("click", listener);
 document.addEventListener("keydown", function (event) {
- 
-  
+  if(!isNaN(event.key)){
+    inputData.push(event.key);
+    
+  }else{
   switch (event.key) {
     case 'Backspace':
       inputData.push('←');
-      console.log(inputData);
       break;
     case '-':
       inputData.push('-');
@@ -38,62 +39,27 @@ document.addEventListener("keydown", function (event) {
     case '.':
       inputData.push('.');
       break;
-    case '0':
-      inputData.push('0');
-      break;
-    case '1':
-      inputData.push('1');
       
-      break;
-    case '2':
-      inputData.push('2');
-      break;
-    case '3':
-      inputData.push('3');
-      break;
-    case '4':
-      inputData.push('4');
-      break;
-    case '5':
-      inputData.push('5');
-      break;
-    case '6':
-      inputData.push('6');
-      break;
-    case '7':
-      inputData.push('7');
-      break;
-    case '8':
-      inputData.push('8');
-      break;
-    case '9':
-      inputData.push('9');
-       break;
+    
   }
-
-  
-  if ((!isNaN(Number(inputData[inputData.length-2]))) && ((!isNaN(Number(inputData[inputData.length-1]))) || (inputData[inputData.length-1] == '.'))) {
-    inputData[inputData.length-2] = inputData[inputData.length-2] + inputData[inputData.length-1];
-    inputData.length -= 1;     
-    } 
-    if ( inputData[inputData.length-1] == '←') {
-      if ((inputData.length == 0) || (inputData.length == 1)|| (inputData.length == 2)) {
-        inputData.pop(inputData[inputData.length-1]);
-        inputData = [];
-        outputResult.textContent = `0`;
-        console.log(inputData);
-        return;
-      } else {
-        inputData.pop(inputData[inputData.length-1]);
-        inputData.pop(inputData[inputData.length-1]);
-      }
-    }  
-
-
+  if ((!isNaN(Number(inputData[inputData.length - 2]))) && ((!isNaN(Number(inputData[inputData.length - 1]))) || (inputData[inputData.length - 1] == '.'))) {
+    inputData[inputData.length - 2] = inputData[inputData.length - 2] + inputData[inputData.length - 1];
+    inputData.length -= 1;
+  }
+  if (inputData[inputData.length - 1] == '←') {
+    if ((inputData.length == 0) || (inputData.length == 1) || (inputData.length == 2)) {
+      inputData.pop(inputData[inputData.length - 1]);
+      inputData = [];
+      outputResult.textContent = `0`;
+      return;
+    } else {
+      inputData.pop(inputData[inputData.length - 1]);
+      inputData.pop(inputData[inputData.length - 1]);
+    }
+  }
   let string = inputData.join('');
   outputResult.textContent = `${string}`;
-});
-
+}});
 document.addEventListener("keydown", function (event) {
   switch (event.key) {
     case 'Enter':
@@ -107,26 +73,17 @@ document.addEventListener("keydown", function (event) {
   }
 }
 );
-
-
-
-
 function listener(event) {
-
- 
   let btnContent = event.target.textContent;
-
   if (event.target.nodeName == 'TD') {
     if (btnContent == '=') {
       calculate();
       inputData = [];
-      console.log(inputData);
       return;
     }
     if (btnContent == 'C') {
       inputData = [];
       outputResult.textContent = '0';
-      console.log(inputData);
       return;
     }
 
@@ -143,7 +100,6 @@ function listener(event) {
         inputData.pop(btnContent);
         inputData = [];
         outputResult.textContent = `0`;
-        console.log(inputData);
         return;
       } else {
         inputData.pop(btnContent);
@@ -153,16 +109,14 @@ function listener(event) {
 
     let string = inputData.join('');
     outputResult.textContent = `${string}`;
-    console.log(inputData);
   }
 }
 
 function calculate() {
   result = Number(inputData[0]);
   for (let i = 0; i < inputData.length - 1; i += 2) {
-
     second = Number(inputData[i + 2]);
-    if (second == 0){
+    if (second == 0) {
       alert('Error');
       inputData = [];
       outputResult.textContent = '0';
@@ -171,10 +125,7 @@ function calculate() {
     operation = inputData[i + 1];
     result = operations[operation](result, second);
   }
-
   outputResult.textContent = result.toFixed(2);
-  console.log(result.toFixed(2));
-
 }
 
 

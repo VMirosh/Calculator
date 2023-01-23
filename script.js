@@ -72,16 +72,23 @@ document.addEventListener("keydown", function (event) {
   }
 
   
-
-  
   if ((!isNaN(Number(inputData[inputData.length-2]))) && ((!isNaN(Number(inputData[inputData.length-1]))) || (inputData[inputData.length-1] == '.'))) {
     inputData[inputData.length-2] = inputData[inputData.length-2] + inputData[inputData.length-1];
-    inputData.length -= 1;
-          
-    }
- 
-  
-  
+    inputData.length -= 1;     
+    } 
+    if ( inputData[inputData.length-1] == '←') {
+      if ((inputData.length == 0) || (inputData.length == 1)|| (inputData.length == 2)) {
+        inputData.pop(inputData[inputData.length-1]);
+        inputData = [];
+        outputResult.textContent = `0`;
+        console.log(inputData);
+        return;
+      } else {
+        inputData.pop(inputData[inputData.length-1]);
+        inputData.pop(inputData[inputData.length-1]);
+      }
+    }  
+
 
   let string = inputData.join('');
   outputResult.textContent = `${string}`;
@@ -153,7 +160,14 @@ function listener(event) {
 function calculate() {
   result = Number(inputData[0]);
   for (let i = 0; i < inputData.length - 1; i += 2) {
+
     second = Number(inputData[i + 2]);
+    if (second == 0){
+      alert('Error');
+      inputData = [];
+      outputResult.textContent = '0';
+      return;
+    }
     operation = inputData[i + 1];
     result = operations[operation](result, second);
   }

@@ -1,93 +1,97 @@
 let outputResult = document.querySelector(".scren");
 // let showWrite = document.querySelector(".show-write");
 // let resultShower = document.querySelector(".result");
- let result;
- let operation;
- let second ;
- let first;
- let inputData = [];
- 
- let operations= {
-  '+': (first,second)=>{return first + second;},
-  '-': (first,second)=>{return first - second;},
-  '×': (first,second)=>{return first * second;},
-  '÷': (first,second)=>{return first / second;},
-  '•': (first,second)=>{return Number(String(first)+"."+String(second))}
-   }
+let result;
+let operation;
+let second;
+let first;
+let inputData = [];
+
+let operations = {
+  '+': (first, second) => { return first + second; },
+  '-': (first, second) => { return first - second; },
+  '×': (first, second) => { return first * second; },
+  '÷': (first, second) => { return first / second; },
+  
+}
 
 let buttons = document.querySelector(".buttons");
 buttons.addEventListener("click", listener);
 
 function listener(event) {
-  if (event.target.textContent == '='){
+  let btnContent = event.target.textContent;
+  if ( btnContent == '=') {
     calculate();
     inputData = [];
     return;
   }
-
+  if (btnContent == 'C') {
+    inputData = [];
+    console.log(inputData);
+    return;
+  }
+  
   if (event.target.nodeName == 'TD') {
-
-    if ((!isNaN(Number(inputData[inputData.length-1])))&&(!isNaN(Number(event.target.textContent)))){
-      inputData[inputData.length-1] = inputData[inputData.length-1] + event.target.textContent;
-
-    }else{
-      inputData.push(event.target.textContent);
+    let lastElement = inputData[inputData.length - 1];
+    
+    if ((!isNaN(Number(lastElement))) && ((!isNaN(Number(btnContent)))||(btnContent == '.'))) {
+      inputData[inputData.length - 1] = lastElement + btnContent;
+      
+    } else {
+      inputData.push(btnContent);
     }
     
     console.log(inputData);
   }
+  if (btnContent == '←') {
+        inputData.pop(btnContent);
+        inputData.pop(btnContent);
+        console.log(inputData);
+      }
 }
-function calculateEval(){
+function calculateEval() {
   let string = inputData.join('');
   console.log(string);
   result = eval(string);
   console.log(result);
 }
 
-function calculate(){  
+function calculate() {
   result = Number(inputData[0]);
 
-  for (let i = 0; i < inputData.length-1; i += 2) { 
-    second = Number(inputData[i+2]);
-    operation = inputData[i+1];
-    debugger;
-    result = operations[operation](result,second);
+  for (let i = 0; i < inputData.length - 1; i += 2) {
+    second = Number(inputData[i + 2]);
+    operation = inputData[i + 1];
+    result = operations[operation](result, second);
 
-  // switch (operation) {
-  //   case '+':
-  //     result = result + second;
-  //     break;
-  //   case '-':
-  //     result = result - second;
-  //     break;
-  //   case '×':
-  //     result = result * second;
-  //     break;
-  //   case '÷':
-  //     result = result / second;
-  //     break;
-  //   }
-  
-  }
-    console.log(result);
-  }
+    // switch (operation) {
+    //   case '+':
+    //     result = result + second;
+    //     break;
+    //   case '-':
+    //     result = result - second;
+    //     break;
+    //   case '×':
+    //     result = result * second;
+    //     break;
+    //   case '÷':
+    //     result = result / second;
+    //     break;
+    //   }
 
-      // if ((event.target.textContent == '=') || (event.target.textContent == 'C')) {
-      //   inputDates = [];
-      //   console.log(inputDates);
-      // }
-      // if (event.target.textContent == '←') {
-      //   inputDates.pop(event.target.textContent);
-      //   inputDates.pop(event.target.textContent);
-      //   console.log(inputDates);
-      // }
+  }
+  console.log(result.toFixed(4));
+}
+
+    
+      
       // let textContent = `${inputDate}`;
       // outputResult.append();
 
-    
 
-  
-  
+
+
+
 
 
 

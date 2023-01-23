@@ -1,6 +1,8 @@
 let outputResult = document.querySelector(".scren");
 // let showWrite = document.querySelector(".show-write");
 // let resultShower = document.querySelector(".result");
+let buttons = document.querySelector(".buttons");
+buttons.addEventListener("click", listener);
 let result;
 let operation;
 let second;
@@ -12,42 +14,42 @@ let operations = {
   '-': (first, second) => { return first - second; },
   '×': (first, second) => { return first * second; },
   '÷': (first, second) => { return first / second; },
-  
 }
 
-let buttons = document.querySelector(".buttons");
-buttons.addEventListener("click", listener);
 
 function listener(event) {
   let btnContent = event.target.textContent;
-  if ( btnContent == '=') {
+
+  if (btnContent == '=') {
     calculate();
     inputData = [];
     return;
   }
+  
   if (btnContent == 'C') {
     inputData = [];
-    console.log(inputData);
+    // let string = inputData.join('');
+    // outputResult.append(string);
     return;
   }
-  
+
   if (event.target.nodeName == 'TD') {
     let lastElement = inputData[inputData.length - 1];
-    
-    if ((!isNaN(Number(lastElement))) && ((!isNaN(Number(btnContent)))||(btnContent == '.'))) {
+
+    if ((!isNaN(Number(lastElement))) && ((!isNaN(Number(btnContent))) || (btnContent == '.'))) {
       inputData[inputData.length - 1] = lastElement + btnContent;
-      
+
     } else {
       inputData.push(btnContent);
     }
-    
+
     console.log(inputData);
   }
   if (btnContent == '←') {
-        inputData.pop(btnContent);
-        inputData.pop(btnContent);
-        console.log(inputData);
-      }
+    inputData.pop(btnContent);
+    inputData.pop(btnContent);
+    console.log(inputData);
+  }
 }
 function calculateEval() {
   let string = inputData.join('');
@@ -55,7 +57,6 @@ function calculateEval() {
   result = eval(string);
   console.log(result);
 }
-
 function calculate() {
   result = Number(inputData[0]);
 
@@ -63,7 +64,6 @@ function calculate() {
     second = Number(inputData[i + 2]);
     operation = inputData[i + 1];
     result = operations[operation](result, second);
-
     // switch (operation) {
     //   case '+':
     //     result = result + second;
@@ -78,15 +78,14 @@ function calculate() {
     //     result = result / second;
     //     break;
     //   }
-
   }
-  console.log(result.toFixed(4));
+  outputResult.textContent = result.toFixed(2);
+  console.log(result.toFixed(2));
 }
 
-    
-      
-      // let textContent = `${inputDate}`;
-      // outputResult.append();
+
+
+
 
 
 

@@ -20,25 +20,23 @@ body {
 
 .bodyCalculate .scren {
   padding: 0 5px;
-    height: 100px;
-    max-width: 100%;
-    margin: 5px;
-    opacity: 0.7;
-    background-color: grey;
-    border-radius: 15%;
-    box-shadow: 1px 1px 0px 0px black;
-    display: flex;
-    font-size: 50px;
-    flex-direction: row-reverse;
-    align-items: center;
-    font-family: Arial;
-    color: black;
+  height: 100px;
+  max-width: 100%;
+  margin: 5px;
+  opacity: 0.7;
+  background-color: grey;
+  border-radius: 15%;
+  box-shadow: 1px 1px 0px 0px black;
+  display: flex;
+  font-size: 48px;
+  flex-direction: column;
+  font-family: Arial;
+  color: black;
+  align-items: flex-end;
+  justify-content: center;
+
 
 }
-
-/* /* .bodyCalculate .scren .showWrite{} */
-
-/* .bodyCalculate .scren .rezult{} */
 
 .bodyCalculate .buttons {
   opacity: 1;
@@ -51,7 +49,7 @@ body {
 
 
 
-.bodyCalculate .buttons td{
+.bodyCalculate .buttons td {
 
   text-align: center;
   background-color: rgb(93, 124, 119);

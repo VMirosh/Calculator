@@ -12,6 +12,7 @@ let outputResult = document.querySelector(".scren");
   '-': (first,second)=>{return first - second;},
   '×': (first,second)=>{return first * second;},
   '÷': (first,second)=>{return first / second;},
+  '•': (first,second)=>{return Number(String(first)+"."+String(second))}
    }
 
 let buttons = document.querySelector(".buttons");
@@ -25,9 +26,15 @@ function listener(event) {
   }
 
   if (event.target.nodeName == 'TD') {
-    inputData.push(event.target.textContent);
-    console.log(inputData);
 
+    if ((!isNaN(Number(inputData[inputData.length-1])))&&(!isNaN(Number(event.target.textContent)))){
+      inputData[inputData.length-1] = inputData[inputData.length-1] + event.target.textContent;
+
+    }else{
+      inputData.push(event.target.textContent);
+    }
+    
+    console.log(inputData);
   }
 }
 function calculateEval(){

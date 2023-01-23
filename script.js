@@ -12,13 +12,14 @@ let operations = {
   '-': (first, second) => { return first - second; },
   '×': (first, second) => { return first * second; },
   '÷': (first, second) => { return first / second; },
+  '%': (first, second) => { return  first * (second / 100);},
+  '√': (first, second) => { return  Math.pow(second, 1/first)},
 }
 
 buttons.addEventListener("click", listener);
 document.addEventListener("keydown", function (event) {
   if(!isNaN(event.key)){
     inputData.push(event.key);
-    
   }else{
   switch (event.key) {
     case 'Backspace':
@@ -38,13 +39,18 @@ document.addEventListener("keydown", function (event) {
       break;
     case '.':
       inputData.push('.');
-      break;
-      
-    
-  }
+      break;    
+  }}
+
   if ((!isNaN(Number(inputData[inputData.length - 2]))) && ((!isNaN(Number(inputData[inputData.length - 1]))) || (inputData[inputData.length - 1] == '.'))) {
     inputData[inputData.length - 2] = inputData[inputData.length - 2] + inputData[inputData.length - 1];
     inputData.length -= 1;
+  }
+  if (isNaN(inputData[0])) {
+    alert('Error');
+    inputData = [];
+    outputResult.textContent = '0';
+    return;
   }
   if (inputData[inputData.length - 1] == '←') {
     if ((inputData.length == 0) || (inputData.length == 1) || (inputData.length == 2)) {
@@ -59,7 +65,7 @@ document.addEventListener("keydown", function (event) {
   }
   let string = inputData.join('');
   outputResult.textContent = `${string}`;
-}});
+});
 document.addEventListener("keydown", function (event) {
   switch (event.key) {
     case 'Enter':
@@ -76,6 +82,7 @@ document.addEventListener("keydown", function (event) {
 function listener(event) {
   let btnContent = event.target.textContent;
   if (event.target.nodeName == 'TD') {
+
     if (btnContent == '=') {
       calculate();
       inputData = [];
@@ -93,6 +100,13 @@ function listener(event) {
       inputData[lengthData - 1] = lastElementData + btnContent;
     } else {
       inputData.push(btnContent);
+
+      if (isNaN(inputData[0])) {
+        alert('Error');
+        inputData = [];
+        outputResult.textContent = '0';
+        return;
+      }
     }
 
     if (btnContent == '←') {

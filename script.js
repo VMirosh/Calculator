@@ -8,6 +8,7 @@ let first;
 let inputData = [];
 //Обьект в котором записаны функции для операций
 let operations = {
+
   '+': (first, second) => { return first + second; },
   '-': (first, second) => { return first - second; },
   '×': (first, second) => { return first * second; },
@@ -40,13 +41,21 @@ document.addEventListener("keydown", function (event) {
     case '.':
       inputData.push('.');
       break;    
+     
+         
   }}
 
   if ((!isNaN(Number(inputData[inputData.length - 2]))) && ((!isNaN(Number(inputData[inputData.length - 1]))) || (inputData[inputData.length - 1] == '.'))) {
     inputData[inputData.length - 2] = inputData[inputData.length - 2] + inputData[inputData.length - 1];
     inputData.length -= 1;
   }
-  if (isNaN(inputData[0])) {
+  if (inputData[0] == '←'){
+    inputData.pop(inputData[inputData.length - 1]);
+      inputData = [];
+      outputResult.textContent = `0`;
+      return;
+  }
+  else if (isNaN(inputData[0])) {
     alert('Error');
     inputData = [];
     outputResult.textContent = '0';
@@ -72,7 +81,15 @@ document.addEventListener("keydown", function (event) {
       calculate();
       inputData = [];
       break;
+      case '=':
+      calculate();
+      inputData = [];
+      break;
     case 'Escape':
+      inputData = [];
+      outputResult.textContent = '0';
+      break;
+    case 'Delete':
       inputData = [];
       outputResult.textContent = '0';
       break;
@@ -101,7 +118,13 @@ function listener(event) {
     } else {
       inputData.push(btnContent);
 
-      if (isNaN(inputData[0])) {
+      if (btnContent == '←'){
+        inputData.pop(btnContent);
+        inputData = [];
+        outputResult.textContent = `0`;
+          return;
+      }
+      else if (isNaN(inputData[0])) {
         alert('Error');
         inputData = [];
         outputResult.textContent = '0';
@@ -139,7 +162,7 @@ function calculate() {
     operation = inputData[i + 1];
     result = operations[operation](result, second);
   }
-  outputResult.textContent = result.toFixed(2);
+  outputResult.textContent = result;
 }
 
 

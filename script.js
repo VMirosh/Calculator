@@ -21,7 +21,7 @@ buttons.addEventListener("click", listener);
 document.addEventListener("keydown", function (event) {
   if(!isNaN(event.key)){
     inputData.push(event.key);
-  }else{
+  }else {
   switch (event.key) {
     case 'Backspace':
       inputData.push('←');
@@ -41,14 +41,14 @@ document.addEventListener("keydown", function (event) {
     case '.':
       inputData.push('.');
       break;    
-     
-         
+             
   }}
 
   if ((!isNaN(Number(inputData[inputData.length - 2]))) && ((!isNaN(Number(inputData[inputData.length - 1]))) || (inputData[inputData.length - 1] == '.'))) {
     inputData[inputData.length - 2] = inputData[inputData.length - 2] + inputData[inputData.length - 1];
     inputData.length -= 1;
   }
+ 
   if (inputData[0] == '←'){
     inputData.pop(inputData[inputData.length - 1]);
       inputData = [];
@@ -61,16 +61,23 @@ document.addEventListener("keydown", function (event) {
     outputResult.textContent = '0';
     return;
   }
+ 
+
   if (inputData[inputData.length - 1] == '←') {
-    if ((inputData.length == 0) || (inputData.length == 1) || (inputData.length == 2)) {
-      inputData.pop(inputData[inputData.length - 1]);
+    let newArray=[];
+    let newArrayLength;
+    element = inputData[inputData.length - 2];
+    newArray = Array.from(`${element}`);
+    newArrayLength = newArray.length;
+    inputData.pop(inputData[inputData.length - 1]);
+    inputData.pop(inputData[inputData.length - 1]);
+    inputData.push(...newArray);
+    inputData.pop(inputData[inputData.length - 1]);
+    if(inputData.length == 0) {
       inputData = [];
-      outputResult.textContent = `0`;
-      return;
-    } else {
-      inputData.pop(inputData[inputData.length - 1]);
-      inputData.pop(inputData[inputData.length - 1]);
-    }
+        outputResult.textContent = `0`;
+        return;
+    }    
   }
   let string = inputData.join('');
   outputResult.textContent = `${string}`;
@@ -118,7 +125,7 @@ function listener(event) {
     } else {
       inputData.push(btnContent);
 
-      if (btnContent == '←'){
+      if (inputData[0] == '←'){
         inputData.pop(btnContent);
         inputData = [];
         outputResult.textContent = `0`;
@@ -131,18 +138,25 @@ function listener(event) {
         return;
       }
     }
+  
+         if (inputData[inputData.length - 1] == '←') {
+        let newArray=[];
+        let newArrayLength;
+        element = inputData[inputData.length - 2];
+        newArray = Array.from(`${element}`);
+        newArrayLength = newArray.length;
+        inputData.pop(inputData[inputData.length - 1]);
+        inputData.pop(inputData[inputData.length - 1]);
+        inputData.push(...newArray);
+        inputData.pop(inputData[inputData.length - 1]);
+        if(inputData.length == 0) {
+          inputData = [];
+            outputResult.textContent = `0`;
+            return;
+        }  
 
-    if (btnContent == '←') {
-      if ((lengthData == 0) || (lengthData == 1)) {
-        inputData.pop(btnContent);
-        inputData = [];
-        outputResult.textContent = `0`;
-        return;
-      } else {
-        inputData.pop(btnContent);
-        inputData.pop(btnContent);
-      }
-    }
+
+  }
 
     let string = inputData.join('');
     outputResult.textContent = `${string}`;
